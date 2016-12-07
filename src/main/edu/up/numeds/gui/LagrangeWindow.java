@@ -19,6 +19,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 
 /**
  * JavaFX window which contains GUI for the Lagrange Interpolation implementation
@@ -233,10 +236,63 @@ public class LagrangeWindow
 		xIntPanel.getChildren().addAll(xIntLabel, xIntTable, newXIntBox);
 
 		// Lagrange layout 
-		HBox lagrangeRoot = new HBox(20);
-		lagrangeRoot.getChildren().addAll(knownPointsPanel, xIntPanel);
+		HBox tablesRoot = new HBox(20);
+		tablesRoot.getChildren().addAll(knownPointsPanel, xIntPanel);
 
-		window.setScene(new Scene(lagrangeRoot, 900, 350));
+		// Create graph
+		// Define Axes
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+		xAxis.setLabel("X-Axis");
+		yAxis.setLabel("Y-Axis");
+		// Create Linechart 
+		final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+		lineChart.setTitle("Graph of Known Points and Lagrange Interpolator");
+		XYChart.Series known = new XYChart.Series();
+		known.setName("Known");
+		XYChart.Series interpolated = new XYChart.Series();
+		interpolated.setName("Interpolated");
+		lineChart.getData().add(known);
+		lineChart.getData().add(interpolated);
+
+		Button graphBtn = new Button("Re-plot Points");
+		graphBtn.setDefaultButton(true);
+		graphBtn.setOnAction(e -> {
+			known.getData().clear();
+			// Add known points 
+			for (OrderedPair<Double> p : _knownPoints)
+			{
+				known.getData().add(new XYChart.Data(p.getX(), p.getY()));
+			}
+			// Add interpolated points 
+			for (OrderedPair<Double> p : _xInt)
+			{
+				interpolated.getData().add(new XYChart.Data(p.getX(), p.getY()));
+			}
+		});
+
+		VBox graphPane = new VBox(10);
+		graphPane.setPadding(new Insets(10, 10, 10, 10));
+		graphPane.getChildren().addAll(graphBtn, lineChart);
+		graphPane.setVgrow(lineChart, Priority.ALWAYS);
+
+		// Create Tabs 
+		TabPane tabPane = new TabPane();
+		BorderPane mainPane = new BorderPane();
+		Tab tabA = new Tab(); // A Tab
+		tabA.setClosable(false);
+		tabA.setText("Points");
+		tabA.setContent(tablesRoot);
+		tabPane.getTabs().add(tabA);
+		Tab tabB = new Tab(); // L Tab
+		tabB.setClosable(false);
+		tabB.setText("Graph");
+		tabB.setContent(graphPane);
+		tabPane.getTabs().add(tabB);
+
+		mainPane.setCenter(tabPane);
+
+		window.setScene(new Scene(mainPane, 900, 350));
 		window.showAndWait(); // Block the menu window
 	}
 }
