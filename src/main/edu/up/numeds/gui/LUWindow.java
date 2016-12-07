@@ -124,10 +124,52 @@ public class LUWindow
 				System.err.println("Invalid format for size of A");
 			}
 		});
+		Button exportBtn = new Button("Export A, L, U as CSV");
+		exportBtn.setOnAction(e -> {
+			// Create File Save dialog
+			try 
+			{
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV Files", "*.csv");
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Export as CSV");
+				fileChooser.getExtensionFilters().add(extFilter);
+				File file = fileChooser.showSaveDialog(window);
+				if (file != null && (file.canWrite() || file.createNewFile()))
+				{
+					System.out.println("Writing CSV to " + file.getAbsoluteFile());
+					FileWriter writer = new FileWriter(file.getAbsoluteFile());
+					CSVWriter csv = new CSVWriter(writer);
+					// Export A 
+					for (ArrayList<Double> row : _matrix)
+					{
+						csv.row(row);
+					}
+					// Create border 
+					csv.border(" ", _size);
+					// Export L 
+					for (ArrayList<Double> row : _L)
+					{
+						csv.row(row);
+					}
+					csv.border(" ", _size);
+					// Export U
+					for (ArrayList<Double> row : _U)
+					{
+						csv.row(row);
+					}
+					// Flush and close writer 
+					csv.finish();
+				}
+			}
+			catch (SecurityException | IOException err)
+			{
+				System.err.println(err);
+			}
+		});
 
 		HBox controlBar = new HBox(20);
 		controlBar.setPadding(new Insets(10, 10, 10, 10));
-		controlBar.getChildren().addAll(decomposeBtn, sizeField, resetBtn);
+		controlBar.getChildren().addAll(decomposeBtn, sizeField, resetBtn, exportBtn);
 
 		mainPane.setCenter(tabPane);
 		mainPane.setBottom(controlBar);

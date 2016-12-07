@@ -46,6 +46,25 @@ public class CSVWriter {
 	private static final char COLUMN_SEPARATOR = ',';
 	private static final char ROW_SEPARATOR = '\n';
 
+    /**
+     * Print out a "border" between two rows, with length len 
+     */
+    public void border(String decorator, int len) throws IOException
+    {
+        boolean first = true; // No separator before the first value
+		StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            if (!first) 
+            {
+                sb.append(COLUMN_SEPARATOR);
+            }
+            first = false;
+			sb.append(decorator);
+        }
+        sb.append(ROW_SEPARATOR);
+        _writer.append(sb.toString());
+    }
+
     public void row(Iterable<Double> values) throws IOException
     {
         row(values, "");

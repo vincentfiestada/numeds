@@ -191,8 +191,10 @@ public class LagrangeWindow
 			// Create File Save dialog
 			try 
 			{
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV Files", "*.csv");
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Export as CSV");
+				fileChooser.getExtensionFilters().add(extFilter);
 				File file = fileChooser.showSaveDialog(window);
 				if (file != null && (file.canWrite() || file.createNewFile()))
 				{
