@@ -15,8 +15,29 @@ package edu.up.numeds;
 		this.y = y;
 	 }
 
-	 public final T x;
-	 public final T y;
+	 public T x;
+	 public T y;
+
+	 // Getters and Setters so it can be used with JavaFX's PropertyValueFactory
+	 public T getX() 
+	 {
+		 return x;
+	 }
+
+	 public void setX(T val)
+	 {
+		 x = val;
+	 }
+
+	 public T getY()
+	 {
+		 return y;
+	 }
+
+	 public void sety(T val)
+	 {
+		 y = val;
+	 }
 
 	 public boolean equals(OrderedPair<T> other)
 	 {
