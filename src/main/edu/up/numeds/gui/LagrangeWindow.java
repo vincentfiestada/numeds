@@ -14,7 +14,6 @@ import edu.up.numeds.OrderedPair;
 import javafx.collections.*;
 import javafx.util.converter.NumberStringConverter;
 import javafx.util.Callback;
-import javafx.beans.value.ObservableDoubleValue;
 import javafx.geometry.Insets;
 import java.io.File;
 import java.io.FileWriter;
@@ -34,8 +33,6 @@ public class LagrangeWindow
 	public LagrangeWindow()
 	{
 		_knownPoints = FXCollections.observableArrayList();
-		_knownPoints.add(new OrderedPair<Double>(89.12, 123.45));
-		_knownPoints.add(new OrderedPair<Double>(920.9, 12.4));
 		_xInt = FXCollections.observableArrayList();
 		_lagrange = new LagrangeInterpolator(_knownPoints);
 	}
@@ -237,7 +234,7 @@ public class LagrangeWindow
 		HBox lagrangeRoot = new HBox(20);
 		lagrangeRoot.getChildren().addAll(knownPointsPanel, xIntPanel);
 
-		window.setScene(new Scene(lagrangeRoot, 800, 350));
+		window.setScene(new Scene(lagrangeRoot, 900, 350));
 		window.showAndWait(); // Block the menu window
 	}
 }

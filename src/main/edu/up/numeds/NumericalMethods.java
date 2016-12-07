@@ -41,7 +41,7 @@ public class NumericalMethods extends Application
         Button btnLagrange = new Button("Lagrange Interpolation");
 		btnLagrange.setOnAction(e -> new LagrangeWindow().display());
 		Button btnLU = new Button("Crout's Method");
-		btnLU.setOnAction(e -> LUWindow.display());
+		btnLU.setOnAction(e -> new LUWindow().display());
 
 		// Menu layout - vertical button menu 
 		VBox menuLayout = new VBox(20);
@@ -50,18 +50,4 @@ public class NumericalMethods extends Application
         primaryStage.setScene(new Scene(menuLayout, 600, 350));
         primaryStage.show();
     }
-
-	private static void lagrangeInterpolate() throws InterpolatorNotReadyException
-	{
-		System.out.println("LU Decomposition Test");
-		ArrayList<OrderedPair<Double>> knownPoints = new ArrayList(5);
-		knownPoints.add(new OrderedPair<Double>(45.67, 32.4));
-		knownPoints.add(new OrderedPair<Double>(163.0, 111.23));
-		knownPoints.add(new OrderedPair<Double>(367.01, 42.5));
-		knownPoints.add(new OrderedPair<Double>(587.12, 82.69));
-		knownPoints.add(new OrderedPair<Double>(590.4, 89.12));
-		LagrangeInterpolator lagrange = new LagrangeInterpolator(knownPoints);
-		Double y = lagrange.interpolate(612.12);
-		System.out.println(y);
-	}
 }
