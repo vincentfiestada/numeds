@@ -1,3 +1,5 @@
+package edu.up.numeds;
+
 /**
  * Represents an ordered pair, 2-tuple, or coordinates in 2D space
  *
@@ -7,7 +9,7 @@
  */
  public class OrderedPair<T>
  {
-	 public OrderedPair(T x, T, y)
+	 public OrderedPair(T x, T y)
 	 {
 		this.x = x;
 		this.y = y;
@@ -26,7 +28,7 @@
 		else
 		{
 			OrderedPair<T> otherPair = (OrderedPair<T>)other;
-			result = x.equals(otherPair.x) && y.equals(otherPair.age);
+			result = x.equals(otherPair.x) && y.equals(otherPair.y);
 		}
 		return result;
 	 }

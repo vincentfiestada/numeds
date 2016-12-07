@@ -1,9 +1,20 @@
 apply plugin: 'java'
 
+sourceSets {
+    main.java.srcDir "src/main"
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile group: 'org.ejml', name: 'all', version: '0.30'
+    
+}
+
+jar {
+    from configurations.compile.collect {
+        zipTree it
+    }
+    manifest.attributes "Main-Class": "edu.up.numeds.NumericalMethods"
 }

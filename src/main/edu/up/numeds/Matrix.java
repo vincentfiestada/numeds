@@ -1,3 +1,5 @@
+package edu.up.numeds;
+
 /**
  * A basic square matrix with methods for retrieving and setting elements 
  *

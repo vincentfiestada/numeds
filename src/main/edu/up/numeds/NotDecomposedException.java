@@ -1,3 +1,5 @@
+package edu.up.numeds;
+
 /**
  * Exception to be thrown when trying to access the decomposed components
  * of a matrix before it has been decomposed or if it has been changed since 
